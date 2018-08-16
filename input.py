@@ -3,8 +3,6 @@ import termios
 import tty
 import signal
 
-allowedinputs = ['w', 'a', 'd', 'q']
-
 
 class Get:
     """Class to get input from user in real time"""
