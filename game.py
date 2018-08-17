@@ -4,7 +4,7 @@ from scene import Scene
 from people import *
 from input import *
 
-scene = Scene(40, 120)
+scene = Scene(40, 100, 500)
 mario = Mario(4, 3)
 mario.setPos(scene, 32, 4)
 
@@ -17,9 +17,18 @@ while True:
     print(scene.displayScene())
 
     if input is not None:
-
+        curhalf = scene.start+50
         if input in ['w', 'a', 'd']:
-            mario.move(input, scene)
+            if input == 'd':
+                if(mario.y <= curhalf):
+                    mario.move(input, scene)
+                else:
+                    scene.start += 3
+                    mario.move(input, scene)
+            else:
+                mario.move(input, scene)
+            # else:
+            #     scene.start
 
         if input == 'q':
             os.system('clear')
