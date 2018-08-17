@@ -1,4 +1,5 @@
 ''' Contains all obstacle class definitions '''
+from gamefunctions import *
 
 
 class Obstacle:
@@ -16,13 +17,34 @@ class Obstacle:
         self.x = x
         self.y = y
 
+    def returnmatrix(self):
+        """ Return the obstacle as a matrix """
+        return self.matrix
 
-class Cloud1:
-    ''' Type 1 cloud'''
+
+class Cloud(Obstacle):
+    '''Making clouds on top '''
 
     def __init__(self, length, width):
         ''' Initialize as a type of obstacke '''
         Obstacle.__init__(self, length, width)
+        self.x = 0
+        self.y = 0
         self.matrix = [['/', '\\', '/', '\\', '/', '\\'],
                        ['\\', ' ', ' ', ' ', ' ', '/'],
                        [' ', '\\', '/', '\\', '/', ' ']]
+
+
+class Grass(Obstacle):
+    '''Background Mountains'''
+
+    def __init__(self, length, width):
+        ''' Initialize as a type of obstacke '''
+        Obstacle.__init__(self, length, width)
+        self.x = 0
+        self.y = 0
+        self.matrix = [[' ', '*', ' '],
+                       ['*', '*', '*']]
+
+
+# class Walls(Obstacle):
