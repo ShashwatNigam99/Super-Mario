@@ -12,36 +12,60 @@ killers = ['~']
 def clashcheck(scene, item, x, y):
     """" Check if the object clashes with barriers in its updated position """
     # flag = 0 - okay , 1 - boundary , exit if - dead
-
+    print("he lol", x, y, "\n")
+    if(y > 490 and x > 25):
+        os.system('clear')
+        print(" You won ! . Final score : " + str(scene.score))
+        sys.exit()
     # check left boundary of item
     scenematrix = scene.returnmatrix()
     for i in range(x, x + item.length):
-        if scenematrix[i][y] in barriers:
+        if(i >= scene.length):
             return 1
+        else:
+            print("here", i, y, "\n")
+            if scenematrix[i][y] in barriers:
+                print("here", i, y, "\n")
+                return 1
     # check right boundary of item
     for i in range(x, x + item.length):
-        if scenematrix[i][y + item.width-1] in barriers:
+        if(i >= scene.length):
             return 1
+        else:
+            if scenematrix[i][y + item.width-1] in barriers:
+                return 1
     # check top
     for i in range(y, y + item.width):
-        if scenematrix[x][i] in barriers:
-            self.status = 1
+        if(x <= 0):
             return 1
+        else:
+            if scenematrix[x][i] in barriers:
+                self.status = 1
+                return 1
     # check bottom
     for i in range(y, y + item.width):
-        if scenematrix[x + item.length - 1][i] in barriers:
+        if(y >= scene.fullwidth):
             return 1
+        else:
+            if scenematrix[x + item.length - 1][i] in barriers:
+                return 1
     for i in range(y, y + item.width):
-        if scenematrix[x + item.length - 1][i] in killers:
-            os.system('clear')
-            print(" You died . Final score : " + scene.score)
-            sys.exit()
+        if(y >= scene.fullwidth):
+            return 1
+        else:
+            if scenematrix[x + item.length - 1][i] in killers:
+                os.system('clear')
+                print(" You died . Final score : " + str(scene.score))
+                sys.exit()
     for i in range(y, y + item.width):
-        if scenematrix[x + item.length][i] in barriers:
-            item.status = 0  # reached ground / some platform
-        if scenematrix[x + item.length][i] not in barriers:
-            item.status = 1
-        return 0
+        if(y >= scene.fullwidth):
+            return 1
+        else:
+            if scenematrix[x + item.length][i] in barriers:
+                item.status = 0  # reached ground / some platform
+            if scenematrix[x + item.length][i] not in barriers:
+                item.status = 1
+            return 0
 
 
 def blitobject(scene, item, x, y):

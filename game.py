@@ -17,13 +17,13 @@ while True:
     print(scene.displayScene())
 
     if input is not None:
-        curhalf = scene.start+50
+        curhalf = scene.start + 50
         if input in ['w', 'a', 'd']:
             if input == 'd':
                 if(mario.y <= curhalf):
                     mario.move(input, scene)
                 else:
-                    scene.start += 3
+                    scene.start += mario.step
                     mario.move(input, scene)
             else:
                 mario.move(input, scene)

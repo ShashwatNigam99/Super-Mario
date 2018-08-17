@@ -84,8 +84,8 @@ class Mario(Person):
         Person.__init__(self, length, width)
         self.matrix = [[' ', chr(213), ' '], [
             '/', '|', '\\'], [' ', '|', ' '], ['/', ' ', '\\']]
-        self.step = 3
-        self.jump = 4
+        self.step = 4
+        self.jump = 8
         self.x = 32
         self.y = 4
         # setting status to be equal to 0

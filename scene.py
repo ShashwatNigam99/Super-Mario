@@ -24,7 +24,7 @@ class Scene:
         p = 1
         for x in range(39, length):
             for y in range(0, fullwidth):
-                self.scenematrix[x][y] = p
+                self.scenematrix[x][y] = str(p)
                 p += 1
 
     def displayScene(self):
@@ -33,6 +33,8 @@ class Scene:
         sceneprint = ""
         sceneprint += " "*30 + "SUPER MARIO\n"
         sceneprint += "Score : " + str(self.score) + "\n"
+        if self.start >= self.fullwidth - self.width:
+            self.start = self.fullwidth - self.width
         for i in range(0, self.length):
             for j in range(self.start, self.start + self.width):
                 sceneprint += str(self.scenematrix[i][j])
