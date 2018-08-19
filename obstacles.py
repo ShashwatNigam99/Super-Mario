@@ -1,5 +1,6 @@
 ''' Contains all obstacle class definitions '''
 from gamefunctions import *
+from scene import *
 
 
 class Obstacle:
@@ -47,4 +48,34 @@ class Grass(Obstacle):
                        ['*', '*', '*']]
 
 
-# class Walls(Obstacle):
+class Wall(Obstacle):
+    ''' Walls that player has to jump '''
+
+    def __init__(self, length, width):
+        ''' Initialize as a type of obstacke '''
+        Obstacle.__init__(self, length, width)
+        self.x = 0
+        self.y = 0
+        self.matrix = [['#' for i in range(0, width)]
+                       for j in range(0, length)]
+
+    def draw_wall(scene, length, width, y):
+        wall = Wall(length, width)
+        x = groundx-wall.length
+        wall.setPos(scene, x, y)
+
+
+class Pit(Obstacle):
+    ''' Pits that player has to avoid '''
+
+    def __init__(self, length, width):
+        ''' Initialize as a type of obstacke '''
+        Obstacle.__init__(self, length, width)
+        self.x = 0
+        self.y = 0
+        self.matrix = [['~' for i in range(0, width)]
+                       for j in range(0, length)]
+
+    def draw_pit(scene, width, y):
+        pit = Pit(scene.length-groundx, width)
+        pit.setPos(scene, groundx, y)

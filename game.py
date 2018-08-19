@@ -24,7 +24,7 @@ while True:
     print(scene.displayScene())
 
     if input is not None:
-        curhalf = scene.start + 50
+        curhalf = scene.start + 70
         if input in ['w', 'a', 'd']:
             if input == 'd':
                 if(mario.y <= curhalf):

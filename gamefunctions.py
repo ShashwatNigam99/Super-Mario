@@ -12,32 +12,32 @@ killers = ['~']
 def clashcheck(scene, item, x, y):
     """" Check if the object clashes with barriers in its updated position """
     # flag = 0 - okay , 1 - boundary , exit if - dead
-    if(y > 490 and x > 25):
+    if(y > scene.fullwidth-10 and x > 25):
         os.system('clear')
         print(" You won ! . Final score : " + str(scene.score))
         sys.exit()
     # check left boundary of item
     scenematrix = scene.returnmatrix()
     for i in range(x, x + item.length):
-        if(i >= scene.length):
+        # if(i >= scene.length):
+        #    return 1
+        # else:
+        if scenematrix[i][y] in barriers:
             return 1
-        else:
-            if scenematrix[i][y] in barriers:
-                return 1
     # check right boundary of item
     for i in range(x, x + item.length):
-        if(i >= scene.length):
+        #    if(i >= scene.length):
+        #        return 1
+        #    else:
+        if scenematrix[i][y + item.width-2] in barriers:
             return 1
-        else:
-            if scenematrix[i][y + item.width-1] in barriers:
-                return 1
     # check top
     for i in range(y, y + item.width):
         if(x <= 0):
             return 1
         else:
             if scenematrix[x][i] in barriers:
-                self.status = 1
+                item.status = 1
                 return 1
     # check bottom
     for i in range(y, y + item.width):
