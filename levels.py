@@ -16,14 +16,16 @@ def generatescene(scene, level):
         grass = Grass(2, 3)
         x = groundx - grass.length
         grass.setPos(scene, x, y)
-    # walls
-    Wall.draw_wall(scene, 6, 5, 40)
-    Wall.draw_wall(scene, 15, 5, 45)
+    # walls and pits
+    Wall.draw_wall(scene, 6, 10, 30)
+    Wall.draw_wall(scene, 15, 10, 40)
 
     wall = Wall(5, 35)
     wall.setPos(scene, groundx-12, 63)
 
     Pit.draw_pit(scene, 15, 78)
 
-    Wall.draw_wall(scene, 15, 5, 108)
-    Wall.draw_wall(scene, 6, 5, 113)
+    Wall.draw_wall(scene, 13, 9, 108)
+    Pit.draw_pit(scene, 15, 117)
+    Wall.draw_wall(scene, 6, 10, 132)
+    Pit.draw_pit(scene, 15, 142)

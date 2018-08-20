@@ -49,9 +49,14 @@ class Person:
     def jumpup(self, scene):
         # has to be on the ground to be allowed to jump
         if self.status == 0:
-            if(clashcheck(scene, self, self.x - (self.jump+4), self.y) == 0):
-                self.setPos(scene, self.x - (self.jump+4), self.y)
-                self.status = 1
+            xup = 0
+            while(xup <= (self.jump*2)):
+                if(clashcheck(scene, self, self.x - xup, self.y) == 0):
+                    xup += 1
+                else:
+                    break
+            self.setPos(scene, self.x - xup, self.y)
+            self.status = 1
 
     def returnmatrix(self):
         """ Return the person as a matrix """
@@ -66,8 +71,8 @@ class Mario(Person):
         Person.__init__(self, length, width)
         self.matrix = [[' ', chr(213), ' '], [
             '/', '|', '\\'], [' ', '|', ' '], ['/', ' ', '\\']]
-        self.step = 3
-        self.jump = 8
+        self.step = 1
+        self.jump = 6
         self.x = 32
         self.y = 4
         # setting status to be equal to 0
@@ -90,3 +95,14 @@ class Mario(Person):
         if self.status == 1:
             if(clashcheck(scene, self, self.x + self.gravity, self.y) == 0):
                 self.setPos(scene, self.x+self.gravity, self.y)
+
+
+class Enemy1(Person):
+    ''' Defining a resizable enemy that shuttles between two points '''
+
+    def __init__(self, length, width, lpos, rpos):
+        Person.__init__(self, length, width)
+        self.lpos = lpos
+        self.rpos = rpos
+        self.x = 0
+        self.y = 0
