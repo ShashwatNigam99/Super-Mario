@@ -1,4 +1,3 @@
-import random
 from obstacles import *
 from scene import *
 
@@ -29,3 +28,22 @@ def generatescene(scene, level):
     Pit.draw_pit(scene, 15, 117)
     Wall.draw_wall(scene, 6, 10, 132)
     Pit.draw_pit(scene, 15, 142)
+
+
+# used to initially put all enemies at their initial positons
+#def putenemies(scene, level):
+#    bot = Enemy1(4, 6, 160, 250)
+#    enemies.append(bot)
+#    bot.setPos(scene, groundx-bot.length, bot.lpos)
+
+
+#def update_enemies(scene, level):
+#    for bot in enemies:
+#        print("update")
+#        if bot.direction == 1:
+#            bot.setPos(scene, bot.x, bot.y + bot.step)
+#        elif bot.direction == -1:
+#            bot.setPos(scene, bot.x, bot.y - bot.step)
+#        if(bot.y >= bot.rpos or bot.y <= bot.lpos):
+#            bot.direction *= -1
+#        print(bot.x, bot.y)

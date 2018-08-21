@@ -5,6 +5,45 @@ import os
 
 getinp = Get()
 
+def putenemies(scene, level, enemies):
+    bot = Enemy1(4, 6, 160, 250)
+    Enemy1.enemies.append(bot)
+    bot.setPos(scene, groundx-bot.length, bot.lpos)
+    print("first time",Enemy1.enemies)
+
+
+def update_enemies(scene, level, enemies):
+    for bot in Enemy1.enemies:
+        print("update")
+        if bot.direction == 1:
+            bot.setPos(scene, bot.x, bot.y + bot.step)
+        elif bot.direction == -1:
+            bot.setPos(scene, bot.x, bot.y - bot.step)
+        if(bot.y >= bot.rpos or bot.y <= bot.lpos):
+            bot.direction *= -1
+        print(bot.x, bot.y)
+    print(Enemy1.enemies)
+
+
+def killenemy(scene, y, enemies):
+    scenematrix = scene.returnmatrix()
+    print("KILL:player at",y)
+    print("killing enemy between ")
+    print(Enemy1.enemies)
+    for bot in Enemy1.enemies:
+        if(y >= bot.lpos and y <= bot.rpos):
+            print(bot.lpos,bot.rpos)
+            # clear the bot
+            for i in range(bot.x,bot.x+bot.length):
+                for j in range(bot.y,bot.y+bot.width):
+                    scenematrix[i][j] = ' '
+            Enemy1.enemies.remove(bot)
+            del bot
+            break
+    print(Enemy1.enemies)
+    scene.updatescene(scenematrix)
+    
+
 
 class Person:
     """ Base definition of people involved in the game"""
@@ -28,14 +67,20 @@ class Person:
         blitobject(scene, self, x, y)
         self.x = x
         self.y = y
-    # status : 0 - ground , 1air
+    # status : 0 - ground , 1- air
 
     def moveleft(self, scene):
         if self.status == 0:
-            if(clashcheck(scene, self, self.x, self.y - self.step) == 0):
+            if clashcheck(scene, self, self.x, self.y - self.step) == 0:
                 self.setPos(scene, self.x, self.y - self.step)
         else:
-            if(clashcheck(scene, self, self.x + self.gravity, self.y - self.step) == 0):
+            chk = clashcheck(scene, self, self.x +
+                                          self.gravity, self.y - self.step)
+            if chk == 0:
+                self.setPos(scene, self.x + self.gravity, self.y - self.step)
+            elif chk == 2:
+                killenemy(scene, self.y-self.step, Enemy1.enemies)
+                print("kill from people.py")
                 self.setPos(scene, self.x + self.gravity, self.y - self.step)
 
     def moveright(self, scene):
@@ -43,8 +88,15 @@ class Person:
             if(clashcheck(scene, self, self.x, self.y + self.step) == 0):
                 self.setPos(scene, self.x, self.y + self.step)
         else:
-            if(clashcheck(scene, self, self.x + self.gravity, self.y + self.step) == 0):
+            chk = clashcheck(scene, self, self.x +
+                             self.gravity, self.y + self.step)
+            if chk == 0:
                 self.setPos(scene, self.x + self.gravity, self.y + self.step)
+            elif chk == 2:
+                print("kill from people.py")
+                killenemy(scene, self.y+self.step,Enemy1.enemies)
+                self.setPos(scene, self.x + self.gravity, self.y + self.step)
+
 
     def jumpup(self, scene):
         # has to be on the ground to be allowed to jump
@@ -100,9 +152,21 @@ class Mario(Person):
 class Enemy1(Person):
     ''' Defining a resizable enemy that shuttles between two points '''
 
+    enemies = []
     def __init__(self, length, width, lpos, rpos):
         Person.__init__(self, length, width)
         self.lpos = lpos
         self.rpos = rpos
         self.x = 0
         self.y = 0
+        self.step = 1
+        # 1 for going right and -1 to go left
+        self.direction = 1
+        self.matrix = []
+        self.matrix.append(['^' for i in range(0, width)])
+        for i in range(1, length):
+            self.matrix.append([])
+            for j in range(0, int(width/2)):
+                self.matrix[i].append('{')
+            for j in range(int(width/2), width):
+                self.matrix[i].append('}')
