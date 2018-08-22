@@ -81,6 +81,7 @@ def killenemy(scene, y, enemies):
     for bot in Enemy1.enemies:
         if(y >= bot.lpos and y <= bot.rpos):
             # clear the bot
+            os.system('aplay -q sounds/ohyeah.wav&')
             for i in range(bot.x, bot.x+bot.length):
                 for j in range(bot.y, bot.y+bot.width):
                     scenematrix[i][j] = ' '
@@ -132,6 +133,7 @@ class Person:
             elif chk == 3:
                 killenemy(scene, self.y-self.step, Enemy1.enemies)
                 Lives.lives -= 1
+
                 self.setPos(scene, self.x + self.gravity,
                             self.y - self.step)
 
@@ -161,6 +163,7 @@ class Person:
         """ Make mario jump up """
         # has to be on the ground to be allowed to jump
         if self.status == 0:
+            os.system('aplay -q sounds/jump.wav&')
             xup = 0
             while(xup < (self.jump*2)):
                 if(clashcheck(scene, self, self.x - xup, self.y) == 0):

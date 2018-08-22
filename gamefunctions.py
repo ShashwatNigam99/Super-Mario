@@ -13,6 +13,7 @@ def clashcheck(scene, item, x, y):
     2 if dead, 3 if collision with enemy """
 
     if(y > scene.fullwidth-10):
+        os.system('aplay -q sounds/gameover.wav&')
         print(" You won ! . Final score : " + str(scene.score))
         sys.exit()
     scenematrix = scene.returnmatrix()
@@ -30,6 +31,7 @@ def clashcheck(scene, item, x, y):
                 return 3
             else:
                 print(" You died . Final score : " + str(scene.score))
+                os.system('aplay -q sounds/death.wav&')
                 sys.exit()
     for i in range(x, x + item.length):
         if scenematrix[i][y] in barriers:
@@ -46,6 +48,7 @@ def clashcheck(scene, item, x, y):
                 return 3
             else:
                 print(" You died . Final score : " + str(scene.score))
+                os.system('aplay -q sounds/death.wav&')
                 sys.exit()
     for i in range(x, x + item.length):
         if scenematrix[i][y + item.width - 1] in barriers:
@@ -72,6 +75,7 @@ def clashcheck(scene, item, x, y):
                 return 3
             else:
                 print(" You died . Final score : " + str(scene.score))
+                os.system('aplay -q sounds/death.wav&')
                 sys.exit()
     for i in range(y, y + item.width):
         if scenematrix[x + item.length][i] in barriers:
