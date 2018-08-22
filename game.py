@@ -32,6 +32,10 @@ print(scene.displayScene())
 
 while True:
     input = input_to(getinp, SPEED[level])
+    if Lives.lives <= 0:
+        print(" You lost all lives. Final score : " +
+              str(scene.score))
+        sys.exit()
     # change game speed by passing timeout here
     os.system('clear')
     generatescene(scene, level)
@@ -40,7 +44,6 @@ while True:
 
     print(scene.displayScene())
     if input is not None:
-        print(str(input))
         curhalf = scene.start + SCENE_MOVE_AFTER
         if input in ALLOWED_INPUTS:
             if input == 'd' or input == 'C':
@@ -55,6 +58,17 @@ while True:
         if input == 'q':
             os.system('clear')
             sys.exit()
+        else:
+            mario.gravityfall(scene)
+            chk = clashcheck(scene, mario, mario.x, mario.y)
+            if chk == 0:
+                pass
+            elif chk == 2:
+                killenemy(scene, mario.y, Enemy1.enemies)
+            elif chk == 3:
+                print("lives-1")
+                killenemy(scene, mario.y, Enemy1.enemies)
+                Lives.lives -= 1
 
     else:
         mario.gravityfall(scene)
@@ -63,6 +77,10 @@ while True:
             pass
         elif chk == 2:
             killenemy(scene, mario.y, Enemy1.enemies)
+        elif chk == 3:
+            print("lives-1")
+            killenemy(scene, mario.y, Enemy1.enemies)
+            Lives.lives -= 1
 
     if mario.y > scene.max_y:
         scene.max_y = mario.y

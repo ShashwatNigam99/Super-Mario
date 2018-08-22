@@ -1,6 +1,7 @@
 """ Defining the characterstics of the player and enemies """
 from gamefunctions import *
 from input import *
+from config import *
 import os
 import random
 
@@ -126,7 +127,12 @@ class Person:
                             self.y - self.step)
             elif chk == 2:
                 killenemy(scene, self.y-self.step, Enemy1.enemies)
-                print("kill from people.py")
+                self.setPos(scene, self.x + self.gravity,
+                            self.y - self.step)
+            elif chk == 3:
+                print("lives-1")
+                killenemy(scene, self.y-self.step, Enemy1.enemies)
+                Lives.lives -= 1
                 self.setPos(scene, self.x + self.gravity,
                             self.y - self.step)
 
@@ -141,8 +147,13 @@ class Person:
                 self.setPos(scene, self.x + self.gravity,
                             self.y + self.step)
             elif chk == 2:
-                print("kill from people.py")
                 killenemy(scene, self.y+self.step, Enemy1.enemies)
+                self.setPos(scene, self.x + self.gravity,
+                            self.y + self.step)
+            elif chk == 3:
+                print("lives-1")
+                killenemy(scene, self.y+self.step, Enemy1.enemies)
+                Lives.lives -= 1
                 self.setPos(scene, self.x + self.gravity,
                             self.y + self.step)
 
@@ -192,8 +203,19 @@ class Mario(Person):
 
     def gravityfall(self, scene):
         if self.status == 1:
-            if(clashcheck(scene, self, self.x+self.gravity, self.y) == 0):
+            chk = clashcheck(scene, self, self.x+self.gravity, self.y)
+            if chk == 0:
                 self.setPos(scene, self.x+self.gravity, self.y)
+            elif chk == 2:
+                killenemy(scene, self.y, Enemy1.enemies)
+                self.setPos(scene, self.x + self.gravity,
+                            self.y)
+            elif chk == 3:
+                print("lives-1")
+                killenemy(scene, self.y, Enemy1.enemies)
+                lives -= 1
+                self.setPos(scene, self.x + self.gravity,
+                            self.y)
 
 
 class Enemy1(Person):

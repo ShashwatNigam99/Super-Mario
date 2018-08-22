@@ -1,3 +1,6 @@
+class Lives:
+    lives = 3
+
 
 SC_LENGTH = 40
 SC_WIDTH = 100
@@ -15,12 +18,12 @@ ALLOWED_INPUTS = ['w', 'a', 'd', 'A', 'C', 'D']
 SCORE_DIST = 10
 SCORE_KILLED = 100
 
-SPEED = {1: 0.2,
-         2: 0.15,
-         3: 0.1}
+SPEED = {1: 0.25,
+         2: 0.2,
+         3: 0.15}
 
 
 groundx = 36
 barriers = ['#', '$']
-killers = ['~', '{']
+killers = ['~', '{', '}']
 beaters = ['^']

@@ -24,10 +24,10 @@ def generatescene(scene, level):
 
     Pit.draw_pit(scene, 15, 78)
 
-    Wall.draw_wall(scene, 10, 9, 108)
-    Pit.draw_pit(scene, 12, 117)
-    Wall.draw_wall(scene, 6, 13, 129)
-    Pit.draw_pit(scene, 15, 142)
+    Wall.draw_wall(scene, 6, 9, 108)
+    Pit.draw_pit(scene, 8, 117)
+    Wall.draw_wall(scene, 4, 17, 125)
+    Pit.draw_pit(scene, 10, 142)
 
     wall = Wall(3, 10)
     wall.setPos(scene, groundx-12, 170)

@@ -28,8 +28,9 @@ class Scene:
         """ Print the screen to the terminal """
 
         sceneprint = ""
-        sceneprint += " "*30 + "SUPER MARIO\n"
-        sceneprint += "Score : " + str(self.score) + "\n"
+        sceneprint += " "*40 + "SUPER MARIO\n"
+        sceneprint += "    SCORE : " + \
+            str(self.score) + " "*75 + "LIVES:" + str(Lives.lives)+"\n"
         if self.start >= self.fullwidth - self.width:
             self.start = self.fullwidth - self.width
         for i in range(0, self.length):

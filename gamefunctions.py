@@ -24,8 +24,12 @@ def clashcheck(scene, item, x, y):
             return 1
     for i in range(x, x + item.length):
         if scenematrix[i][y] in killers:
-            print(" You died . Final score : " + str(scene.score))
-            sys.exit()
+            if scenematrix[i][y] in ['{', '}']:
+                print("called")
+                return 3
+            else:
+                print(" You died . Final score : " + str(scene.score))
+                sys.exit()
     for i in range(x, x + item.length):
         if scenematrix[i][y] in barriers:
             return 1
@@ -36,8 +40,12 @@ def clashcheck(scene, item, x, y):
 
     for i in range(x, x + item.length):
         if scenematrix[i][y + item.width - 1] in killers:
-            print(" You died . Final score : " + str(scene.score))
-            sys.exit()
+            if scenematrix[i][y+item.width-1] in ['{', '}']:
+                print("called")
+                return 3
+            else:
+                print(" You died . Final score : " + str(scene.score))
+                sys.exit()
     for i in range(x, x + item.length):
         if scenematrix[i][y + item.width - 1] in barriers:
             return 1
@@ -56,12 +64,14 @@ def clashcheck(scene, item, x, y):
             return 1
     for i in range(y, y + item.width):
         if scenematrix[x+item.length-1][i] in beaters:
-            print("kill")
             return 2
     for i in range(y, y + item.width):
         if scenematrix[x + item.length - 1][i] in killers:
-            print(" You died . Final score : " + str(scene.score))
-            sys.exit()
+            if scenematrix[x+item.length-1][i] in ['{', '}']:
+                return 3
+            else:
+                print(" You died . Final score : " + str(scene.score))
+                sys.exit()
     for i in range(y, y + item.width):
         if scenematrix[x + item.length][i] in barriers:
             item.status = 0  # reached ground / some platform
@@ -73,7 +83,6 @@ def clashcheck(scene, item, x, y):
         item.status = 1
     for i in range(y, y + item.width):
         if scenematrix[x+item.length][i] in beaters:
-            print("kill")
             return 2
     return 0
 
