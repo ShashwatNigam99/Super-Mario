@@ -1,5 +1,5 @@
 """ Defining the base background scene """
-groundx = 36
+from config import *
 
 
 class Scene:
@@ -11,6 +11,7 @@ class Scene:
         self.length = length
         self.width = width
         self.fullwidth = fullwidth
+        self.max_y = 0
         self.score = 0
         self.scenematrix = []
         # scenematrix is a matrix to display all elements

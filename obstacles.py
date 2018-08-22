@@ -1,6 +1,6 @@
 ''' Contains all obstacle class definitions '''
 from gamefunctions import *
-from scene import *
+from config import *
 
 
 class Obstacle:

@@ -4,11 +4,7 @@
 """
 import os
 import sys
-#from levels import *
-groundx = 36
-barriers = ['#', '$']
-killers = ['~', '{']
-beaters = ['^']
+from config import *
 
 
 def clashcheck(scene, item, x, y):
@@ -45,6 +41,8 @@ def clashcheck(scene, item, x, y):
     for i in range(x, x + item.length):
         if scenematrix[i][y + item.width - 1] in barriers:
             return 1
+
+    # check top
     for i in range(y, y + item.width):
         if(x <= 0):
             return 1
@@ -63,7 +61,7 @@ def clashcheck(scene, item, x, y):
     for i in range(y, y + item.width):
         if scenematrix[x + item.length - 1][i] in killers:
             print(" You died . Final score : " + str(scene.score))
-            sys.exit()        
+            sys.exit()
     for i in range(y, y + item.width):
         if scenematrix[x + item.length][i] in barriers:
             item.status = 0  # reached ground / some platform

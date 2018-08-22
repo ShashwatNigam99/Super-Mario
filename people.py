@@ -2,47 +2,91 @@
 from gamefunctions import *
 from input import *
 import os
+import random
 
 getinp = Get()
 
+
 def putenemies(scene, level, enemies):
-    bot = Enemy1(4, 6, 160, 250)
+    bot = Enemy1(random.randint(1, 3)*2, random.randint(2, 4)*2, 160, 180)
     Enemy1.enemies.append(bot)
     bot.setPos(scene, groundx-bot.length, bot.lpos)
-    print("first time",Enemy1.enemies)
+
+    bot = Enemy1(random.randint(1, 3)*2, random.randint(2, 4)*2, 202, 225)
+    Enemy1.enemies.append(bot)
+    bot.setPos(scene, groundx-bot.length, bot.lpos)
+
+    bot = Enemy1(random.randint(1, 2)*2, random.randint(1, 3)*2, 390, 410)
+    Enemy1.enemies.append(bot)
+    bot.setPos(scene, groundx-bot.length-10, bot.lpos)
+
+    bot = Enemy1(random.randint(1, 2)*2, random.randint(1, 3)*2, 430, 450)
+    Enemy1.enemies.append(bot)
+    bot.setPos(scene, groundx-bot.length-10, bot.lpos)
+
+    if level >= 2:
+        bot = Enemy1(random.randint(1, 2)*2, random.randint(1, 3)*2,
+                     288, 304)
+        Enemy1.enemies.append(bot)
+        bot.setPos(scene, groundx-bot.length-19, bot.lpos)
+
+        bot = Enemy1(random.randint(1, 2)*2, random.randint(1, 3)*2,
+                     300, 316)
+        Enemy1.enemies.append(bot)
+        bot.setPos(scene, groundx-bot.length-27, bot.lpos)
+
+        bot = Enemy1(random.randint(1, 2)*2, random.randint(1, 3)*2,
+                     63, 95)
+        Enemy1.enemies.append(bot)
+        bot.setPos(scene, groundx-bot.length-9, bot.lpos)
+
+    if level >= 3:
+        bot = Enemy1(random.randint(1, 2)*2, random.randint(1, 3)*2,
+                     400, 416)
+        Enemy1.enemies.append(bot)
+        bot.setPos(scene, groundx-bot.length-18, bot.lpos)
+
+        bot = Enemy1(random.randint(1, 2)*2, random.randint(1, 3)*2,
+                     440, 456)
+        Enemy1.enemies.append(bot)
+        bot.setPos(scene, groundx-bot.length-20, bot.lpos)
+
+        bot = Enemy1(random.randint(1, 2)*2, random.randint(1, 3)*2,
+                     410, 426)
+        Enemy1.enemies.append(bot)
+        bot.setPos(scene, groundx-bot.length-20, bot.lpos)
+
+        bot = Enemy1(random.randint(1, 2)*2, random.randint(1, 3)*2,
+                     63, 95)
+        Enemy1.enemies.append(bot)
+        bot.setPos(scene, groundx-bot.length-9, bot.lpos)
 
 
 def update_enemies(scene, level, enemies):
     for bot in Enemy1.enemies:
-        print("update")
         if bot.direction == 1:
             bot.setPos(scene, bot.x, bot.y + bot.step)
         elif bot.direction == -1:
             bot.setPos(scene, bot.x, bot.y - bot.step)
         if(bot.y >= bot.rpos or bot.y <= bot.lpos):
             bot.direction *= -1
-        print(bot.x, bot.y)
-    print(Enemy1.enemies)
 
 
 def killenemy(scene, y, enemies):
     scenematrix = scene.returnmatrix()
-    print("KILL:player at",y)
-    print("killing enemy between ")
-    print(Enemy1.enemies)
     for bot in Enemy1.enemies:
         if(y >= bot.lpos and y <= bot.rpos):
-            print(bot.lpos,bot.rpos)
+            print(bot.lpos, bot.rpos)
             # clear the bot
-            for i in range(bot.x,bot.x+bot.length):
-                for j in range(bot.y,bot.y+bot.width):
+            for i in range(bot.x, bot.x+bot.length):
+                for j in range(bot.y, bot.y+bot.width):
                     scenematrix[i][j] = ' '
             Enemy1.enemies.remove(bot)
+            # score tracking
+            Enemy1.killed += 1
             del bot
             break
-    print(Enemy1.enemies)
     scene.updatescene(scenematrix)
-    
 
 
 class Person:
@@ -67,6 +111,7 @@ class Person:
         blitobject(scene, self, x, y)
         self.x = x
         self.y = y
+
     # status : 0 - ground , 1- air
 
     def moveleft(self, scene):
@@ -75,13 +120,15 @@ class Person:
                 self.setPos(scene, self.x, self.y - self.step)
         else:
             chk = clashcheck(scene, self, self.x +
-                                          self.gravity, self.y - self.step)
+                             self.gravity, self.y - self.step)
             if chk == 0:
-                self.setPos(scene, self.x + self.gravity, self.y - self.step)
+                self.setPos(scene, self.x + self.gravity,
+                            self.y - self.step)
             elif chk == 2:
                 killenemy(scene, self.y-self.step, Enemy1.enemies)
                 print("kill from people.py")
-                self.setPos(scene, self.x + self.gravity, self.y - self.step)
+                self.setPos(scene, self.x + self.gravity,
+                            self.y - self.step)
 
     def moveright(self, scene):
         if self.status == 0:
@@ -91,12 +138,13 @@ class Person:
             chk = clashcheck(scene, self, self.x +
                              self.gravity, self.y + self.step)
             if chk == 0:
-                self.setPos(scene, self.x + self.gravity, self.y + self.step)
+                self.setPos(scene, self.x + self.gravity,
+                            self.y + self.step)
             elif chk == 2:
                 print("kill from people.py")
-                killenemy(scene, self.y+self.step,Enemy1.enemies)
-                self.setPos(scene, self.x + self.gravity, self.y + self.step)
-
+                killenemy(scene, self.y+self.step, Enemy1.enemies)
+                self.setPos(scene, self.x + self.gravity,
+                            self.y + self.step)
 
     def jumpup(self, scene):
         # has to be on the ground to be allowed to jump
@@ -128,24 +176,23 @@ class Mario(Person):
         self.x = 32
         self.y = 4
         # setting status to be equal to 0
-        # 0-on ground,1- in air going down ,2 - in air going up
+        # 0-on ground, 1- in air going down
         self.status = 0
         self.gravity = 1
 
     def move(self, keypress, scene):
         """ Functionality to move mario according to user input """
 
-        if keypress == 'w':
+        if keypress == 'w' or keypress == 'A':
             self.jumpup(scene)
-        elif keypress == 'a':
+        elif keypress == 'a' or keypress == 'D':
             self.moveleft(scene)
-        elif keypress == 'd':
+        elif keypress == 'd' or keypress == 'C':
             self.moveright(scene)
 
     def gravityfall(self, scene):
-
         if self.status == 1:
-            if(clashcheck(scene, self, self.x + self.gravity, self.y) == 0):
+            if(clashcheck(scene, self, self.x+self.gravity, self.y) == 0):
                 self.setPos(scene, self.x+self.gravity, self.y)
 
 
@@ -153,6 +200,8 @@ class Enemy1(Person):
     ''' Defining a resizable enemy that shuttles between two points '''
 
     enemies = []
+    killed = 0
+
     def __init__(self, length, width, lpos, rpos):
         Person.__init__(self, length, width)
         self.lpos = lpos
