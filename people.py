@@ -1,4 +1,4 @@
-""" Defining the characterstics of the player and enemies """
+""" Defining the characterstics and functions of the player and enemies """
 from gamefunctions import *
 from input import *
 from config import *
@@ -9,6 +9,7 @@ getinp = Get()
 
 
 def putenemies(scene, level, enemies):
+    """ Put enemies onto the scene according to the level """
     bot = Enemy1(random.randint(1, 3)*2, random.randint(2, 4)*2, 160, 180)
     Enemy1.enemies.append(bot)
     bot.setPos(scene, groundx-bot.length, bot.lpos)
@@ -64,6 +65,7 @@ def putenemies(scene, level, enemies):
 
 
 def update_enemies(scene, level, enemies):
+    """ Update enemy positions, called in each game loop iteration """
     for bot in Enemy1.enemies:
         if bot.direction == 1:
             bot.setPos(scene, bot.x, bot.y + bot.step)
@@ -74,10 +76,10 @@ def update_enemies(scene, level, enemies):
 
 
 def killenemy(scene, y, enemies):
+    """ Kills the enemy that lies between two coordinates """
     scenematrix = scene.returnmatrix()
     for bot in Enemy1.enemies:
         if(y >= bot.lpos and y <= bot.rpos):
-            print(bot.lpos, bot.rpos)
             # clear the bot
             for i in range(bot.x, bot.x+bot.length):
                 for j in range(bot.y, bot.y+bot.width):
@@ -95,27 +97,25 @@ class Person:
 
     def __init__(self, length, width):
         """ Giving initial standard values """
-
         self.length = length
         self.width = width
-
         # x and y are the values of the top left coordinate
         self.x = None
         self.y = None
         self.matrix = []
-
         # defining how much the person moves at a time
         self.step = None
         self.jump = None
 
     def setPos(self, scene, x, y):
+        """ Calls blitobject function and updates position """
         blitobject(scene, self, x, y)
         self.x = x
         self.y = y
 
-    # status : 0 - ground , 1- air
-
     def moveleft(self, scene):
+        """ Make mario move left after making necessary checks """
+
         if self.status == 0:
             if clashcheck(scene, self, self.x, self.y - self.step) == 0:
                 self.setPos(scene, self.x, self.y - self.step)
@@ -130,13 +130,14 @@ class Person:
                 self.setPos(scene, self.x + self.gravity,
                             self.y - self.step)
             elif chk == 3:
-                print("lives-1")
                 killenemy(scene, self.y-self.step, Enemy1.enemies)
                 Lives.lives -= 1
                 self.setPos(scene, self.x + self.gravity,
                             self.y - self.step)
 
     def moveright(self, scene):
+        """ Make mario move right after making necessary checks """
+
         if self.status == 0:
             if(clashcheck(scene, self, self.x, self.y + self.step) == 0):
                 self.setPos(scene, self.x, self.y + self.step)
@@ -151,22 +152,29 @@ class Person:
                 self.setPos(scene, self.x + self.gravity,
                             self.y + self.step)
             elif chk == 3:
-                print("lives-1")
                 killenemy(scene, self.y+self.step, Enemy1.enemies)
                 Lives.lives -= 1
                 self.setPos(scene, self.x + self.gravity,
                             self.y + self.step)
 
     def jumpup(self, scene):
+        """ Make mario jump up """
         # has to be on the ground to be allowed to jump
         if self.status == 0:
             xup = 0
-            while(xup <= (self.jump*2)):
+            while(xup < (self.jump*2)):
                 if(clashcheck(scene, self, self.x - xup, self.y) == 0):
+                    #    self.setPos(scene, (self.x-xup), self.y)
                     xup += 1
                 else:
                     break
-            self.setPos(scene, self.x - xup, self.y)
+            self.setPos(scene, (self.x-xup), self.y)
+            # jumped = 0
+            # print(xup)
+            # while jumped <= xup:
+            #     print(jumped)
+            #     self.setPos(scene, (self.x-jumped), self.y)
+            #     jumped += 1
             self.status = 1
 
     def returnmatrix(self):
@@ -182,7 +190,7 @@ class Mario(Person):
         Person.__init__(self, length, width)
         self.matrix = [[' ', chr(213), ' '], [
             '/', '|', '\\'], [' ', '|', ' '], ['/', ' ', '\\']]
-        self.step = 1
+        self.step = 2
         self.jump = 6
         self.x = 32
         self.y = 4
@@ -193,7 +201,6 @@ class Mario(Person):
 
     def move(self, keypress, scene):
         """ Functionality to move mario according to user input """
-
         if keypress == 'w' or keypress == 'A':
             self.jumpup(scene)
         elif keypress == 'a' or keypress == 'D':
@@ -202,6 +209,7 @@ class Mario(Person):
             self.moveright(scene)
 
     def gravityfall(self, scene):
+        """ Simple gravity fall if no input is provided and in air"""
         if self.status == 1:
             chk = clashcheck(scene, self, self.x+self.gravity, self.y)
             if chk == 0:
@@ -211,20 +219,21 @@ class Mario(Person):
                 self.setPos(scene, self.x + self.gravity,
                             self.y)
             elif chk == 3:
-                print("lives-1")
                 killenemy(scene, self.y, Enemy1.enemies)
-                lives -= 1
+                Lives.lives -= 1
                 self.setPos(scene, self.x + self.gravity,
                             self.y)
 
 
 class Enemy1(Person):
     ''' Defining a resizable enemy that shuttles between two points '''
-
+    # this list holds all the enemies currently alive on the scene
     enemies = []
+    # keeps track of enemies killed
     killed = 0
 
     def __init__(self, length, width, lpos, rpos):
+        """ Define characterstics of Enemy """
         Person.__init__(self, length, width)
         self.lpos = lpos
         self.rpos = rpos

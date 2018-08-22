@@ -19,18 +19,18 @@ class Scene:
             self.scenematrix.append([])
             for y in range(0, fullwidth):
                 self.scenematrix[x].append(' ')
-
         for x in range(groundx, length):
             for y in range(0, fullwidth):
                 self.scenematrix[x][y] = '#'
 
-    def displayScene(self):
+    def displayScene(self, level):
         """ Print the screen to the terminal """
 
         sceneprint = ""
-        sceneprint += " "*40 + "SUPER MARIO\n"
+        sceneprint += " "*44 + "SUPER MARIO\n"
         sceneprint += "    SCORE : " + \
-            str(self.score) + " "*75 + "LIVES:" + str(Lives.lives)+"\n"
+            str(self.score) + " "*30+"LEVEL:"+str(level) + " "*30 + \
+            "LIVES:" + str(Lives.lives)+"\n"
         if self.start >= self.fullwidth - self.width:
             self.start = self.fullwidth - self.width
         for i in range(0, self.length):
@@ -38,7 +38,6 @@ class Scene:
                 sceneprint += str(self.scenematrix[i][j])
             sceneprint += '\n'
         sceneprint += "Press Q to exit\n"
-
         return sceneprint
 
     def returnmatrix(self):

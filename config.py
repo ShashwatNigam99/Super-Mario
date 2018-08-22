@@ -1,3 +1,6 @@
+""" Contains all game parameters in one place """
+
+
 class Lives:
     lives = 3
 

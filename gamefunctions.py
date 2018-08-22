@@ -8,10 +8,11 @@ from config import *
 
 
 def clashcheck(scene, item, x, y):
-    """" Check if the object clashes with barriers in its updated position """
-    # flag = 0 - okay , 1 - boundary , exit if - dead
+    """ Check if the object clashes with barriers in its updated position.
+    Return value : 0 if okay to move, 1 if can't move,
+    2 if dead, 3 if collision with enemy """
+
     if(y > scene.fullwidth-10):
-        os.system('clear')
         print(" You won ! . Final score : " + str(scene.score))
         sys.exit()
     scenematrix = scene.returnmatrix()
@@ -74,7 +75,8 @@ def clashcheck(scene, item, x, y):
                 sys.exit()
     for i in range(y, y + item.width):
         if scenematrix[x + item.length][i] in barriers:
-            item.status = 0  # reached ground / some platform
+            item.status = 0
+            # reached ground / some platform
     p = 0
     for i in range(y, y + item.width):
         if scenematrix[x + item.length][i] not in barriers:
@@ -88,7 +90,8 @@ def clashcheck(scene, item, x, y):
 
 
 def blitobject(scene, item, x, y):
-    """ Blit given item over the scene specified """
+    """ Blit given item over the scene where specified
+    after deleting previous instance"""
     scenematrix = scene.returnmatrix()
     itemmatrix = item.returnmatrix()
     k = 0

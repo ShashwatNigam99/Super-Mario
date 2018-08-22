@@ -21,17 +21,18 @@ scene = Scene(SC_LENGTH, SC_WIDTH, SC_FULLWIDTH)
 # Put mario at predefined initial position
 mario = Mario(MARIO_LENGTH, MARIO_WIDTH)
 mario.setPos(scene, MARIO_INIT_X, MARIO_INIT_Y)
-# scene.start = 150 # remove this after testing
+# scene.start = 230  # remove this after testing
 # Generate scene : walls, pits, grass, clouds
 generatescene(scene, level)
 # Put enemies
 putenemies(scene, level, Enemy1.enemies)
 
 getinp = Get()
-print(scene.displayScene())
+print(scene.displayScene(level))
 
 while True:
     input = input_to(getinp, SPEED[level])
+    # check if the player hasnt lost all lives
     if Lives.lives <= 0:
         print(" You lost all lives. Final score : " +
               str(scene.score))
@@ -39,10 +40,10 @@ while True:
     # change game speed by passing timeout here
     os.system('clear')
     generatescene(scene, level)
-
+    # update all alive enemies
     update_enemies(scene, level, Enemy1.enemies)
-
-    print(scene.displayScene())
+    # display the scene generated
+    print(scene.displayScene(level))
     if input is not None:
         curhalf = scene.start + SCENE_MOVE_AFTER
         if input in ALLOWED_INPUTS:
@@ -66,7 +67,6 @@ while True:
             elif chk == 2:
                 killenemy(scene, mario.y, Enemy1.enemies)
             elif chk == 3:
-                print("lives-1")
                 killenemy(scene, mario.y, Enemy1.enemies)
                 Lives.lives -= 1
 
@@ -78,7 +78,6 @@ while True:
         elif chk == 2:
             killenemy(scene, mario.y, Enemy1.enemies)
         elif chk == 3:
-            print("lives-1")
             killenemy(scene, mario.y, Enemy1.enemies)
             Lives.lives -= 1
 
