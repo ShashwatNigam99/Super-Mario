@@ -1,5 +1,17 @@
+import os
 from obstacles import *
 from config import *
+
+
+def show_title_page():
+    os.system('clear')
+    print(Fore.RED+Style.BRIGHT+"\n"*5+" "*45+"SUPER MARIO"+" "*40)
+    print(Fore.CYAN+"\n"*3+" "*30 + "Higher the level,\
+          more the number of enemies\n")
+    print(Fore.CYAN+" "*35 + " more gravity and faster movement\n\n")
+    print(Fore.YELLOW+" "*43 + " Choose Wisely.\n")
+    x = int(input(Fore.WHITE+" "*20+"Enter level (1/2/3) : "))
+    return x
 
 
 def generatescene(scene, level):

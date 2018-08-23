@@ -7,6 +7,13 @@ import sys
 from config import *
 
 
+def check_lives(lives):
+    if lives <= 0:
+        print(Fore.RED+Style.BRIGHT+" You lost all lives. Final score : " +
+              str(scene.score))
+        sys.exit()
+
+
 def clashcheck(scene, item, x, y):
     """ Check if the object clashes with barriers in its updated position.
     Return value : 0 if okay to move, 1 if can't move,

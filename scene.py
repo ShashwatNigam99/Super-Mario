@@ -21,16 +21,16 @@ class Scene:
                 self.scenematrix[x].append(' ')
         for x in range(groundx, length):
             for y in range(0, fullwidth):
-                self.scenematrix[x][y] = '#'
+                self.scenematrix[x][y] = colors['Brown'] + '#' + RESET
 
     def displayScene(self, level):
         """ Print the screen to the terminal """
 
         sceneprint = ""
-        sceneprint += " "*44 + "SUPER MARIO\n"
-        sceneprint += "    SCORE : " + \
+        sceneprint += colors['Yellow'] + " "*40 + "SUPER MARIO\n" + RESET
+        sceneprint += colors['Cyan']+"SCORE : " +\
             str(self.score) + " "*30+"LEVEL:"+str(level) + " "*30 + \
-            "LIVES:" + str(Lives.lives)+"\n"
+            "LIVES:" + str(Lives.lives)+"\n"+RESET
         if self.start >= self.fullwidth - self.width:
             self.start = self.fullwidth - self.width
         for i in range(0, self.length):

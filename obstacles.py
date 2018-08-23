@@ -31,9 +31,11 @@ class Cloud(Obstacle):
         Obstacle.__init__(self, length, width)
         self.x = 0
         self.y = 0
-        self.matrix = [['/', '\\', '/', '\\', '/', '\\'],
-                       ['\\', ' ', ' ', ' ', ' ', '/'],
-                       [' ', '\\', '/', '\\', '/', ' ']]
+        p = colors['White']+'/'+RESET
+        q = colors['White']+'\\'+RESET
+        self.matrix = [[p, q, p, q, p, q],
+                       [q, ' ', ' ', ' ', ' ', p],
+                       [' ', q, p, q, p, ' ']]
 
 
 class Grass(Obstacle):
@@ -44,8 +46,9 @@ class Grass(Obstacle):
         Obstacle.__init__(self, length, width)
         self.x = 0
         self.y = 0
-        self.matrix = [[' ', '*', ' '],
-                       ['*', '*', '*']]
+        g = colors['Light Green']+'*'+RESET
+        self.matrix = [[' ', g, ' '],
+                       [g, g, g]]
 
 
 class Wall(Obstacle):
@@ -56,7 +59,7 @@ class Wall(Obstacle):
         Obstacle.__init__(self, length, width)
         self.x = 0
         self.y = 0
-        self.matrix = [['#' for i in range(0, width)]
+        self.matrix = [[colors['Brown']+'#'+RESET for i in range(0, width)]
                        for j in range(0, length)]
 
     def draw_wall(scene, length, width, y):
@@ -73,7 +76,7 @@ class Pit(Obstacle):
         Obstacle.__init__(self, length, width)
         self.x = 0
         self.y = 0
-        self.matrix = [['~' for i in range(0, width)]
+        self.matrix = [[colors['Blue']+'~' for i in range(0, width)]
                        for j in range(0, length)]
 
     def draw_pit(scene, width, y):

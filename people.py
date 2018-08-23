@@ -58,11 +58,6 @@ def putenemies(scene, level, enemies):
         Enemy1.enemies.append(bot)
         bot.setPos(scene, groundx-bot.length-20, bot.lpos)
 
-        bot = Enemy1(random.randint(1, 2)*2, random.randint(1, 3)*2,
-                     63, 95)
-        Enemy1.enemies.append(bot)
-        bot.setPos(scene, groundx-bot.length-9, bot.lpos)
-
 
 def update_enemies(scene, level, enemies):
     """ Update enemy positions, called in each game loop iteration """
@@ -191,8 +186,13 @@ class Mario(Person):
     def __init__(self, length, width):
         """ Initialize Mario as a person and give initial structure"""
         Person.__init__(self, length, width)
-        self.matrix = [[' ', chr(213), ' '], [
-            '/', '|', '\\'], [' ', '|', ' '], ['/', ' ', '\\']]
+        head = colors['Yellow'] + chr(213) + RESET
+        mid = colors['Red'] + '|' + RESET
+        left = colors['Purple'] + '/' + RESET
+        right = colors['Purple'] + '\\' + RESET
+
+        self.matrix = [[' ', head, ' '], [
+            left, mid, right], [' ', mid, ' '], [left, ' ', right]]
         self.step = 2
         self.jump = 6
         self.x = 32
