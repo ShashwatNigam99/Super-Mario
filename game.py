@@ -27,7 +27,7 @@ print(scene.displayScene(level))
 while True:
     input = input_to(getinp, SPEED[level])
     # check if the player hasn't lost all lives
-    check_lives(scene, Lives.lives)
+    check_lives(scene, Lives.lives, level)
     os.system('clear')
     generatescene(scene, level)
     # update all alive enemies

@@ -34,6 +34,7 @@ def putcoins(scene, level, coins):
     coin.setPos(scene, groundx-20-coin.length, 448)
 
     if level >= 2:
+
         coin = Coins()
         Coins.coins.append(coin)
         coin.setPos(scene, groundx-10-coin.length, 193)
@@ -55,6 +56,7 @@ def putcoins(scene, level, coins):
         coin.setPos(scene, groundx-19-coin.length, 408)
 
     if level >= 3:
+
         coin = Coins()
         Coins.coins.append(coin)
         coin.setPos(scene, groundx-10-coin.length, 398)
@@ -73,7 +75,7 @@ def putcoins(scene, level, coins):
 
 
 def update_coins(scene, level, coins):
-    print(Coins.coins)
+    ''' Update all coins remaining in each game loop iteration '''
     for coin in Coins.coins:
         coin.setPos(scene, coin.x, coin.y)
 
@@ -104,12 +106,13 @@ class Obstacle:
         self.matrix = []
 
     def setPos(self, scene, x, y):
+        ''' Take the item and blit it over the scene at position specified'''
         blitobject(scene, self, x, y)
         self.x = x
         self.y = y
 
     def returnmatrix(self):
-        """ Return the obstacle as a matrix """
+        ''' Return the obstacle as a matrix '''
         return self.matrix
 
 
@@ -166,8 +169,9 @@ class Pit(Obstacle):
         Obstacle.__init__(self, length, width)
         self.x = 0
         self.y = 0
-        self.matrix = [[colors['Blue']+'~' for i in range(0, width)]
+        self.matrix = [[colors['Blue'] + '~' + RESET for i in range(0, width)]
                        for j in range(0, length)]
+        self.matrix[0] = [' ' for i in range(0, width)]
 
     def draw_pit(scene, width, y):
         pit = Pit(scene.length-groundx, width)

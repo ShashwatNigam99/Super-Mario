@@ -1,9 +1,9 @@
 """ Defining the characterstics and functions of the player and enemies """
+import os
+import random
 from gamefunctions import *
 from input import *
 from config import *
-import os
-import random
 from obstacles import *
 
 getinp = Get()
@@ -11,11 +11,11 @@ getinp = Get()
 
 def putenemies(scene, level, enemies):
     """ Put enemies onto the scene according to the level """
-    bot = Enemy1(random.randint(1, 3)*2, random.randint(2, 4)*2, 160, 180)
+    bot = Enemy1(random.randint(1, 2)*2, random.randint(2, 3)*2, 160, 180)
     Enemy1.enemies.append(bot)
     bot.setPos(scene, groundx-bot.length, bot.lpos)
 
-    bot = Enemy1(random.randint(1, 3)*2, random.randint(2, 4)*2, 202, 225)
+    bot = Enemy1(random.randint(1, 2)*2, random.randint(2, 3)*2, 202, 225)
     Enemy1.enemies.append(bot)
     bot.setPos(scene, groundx-bot.length, bot.lpos)
 
@@ -45,17 +45,17 @@ def putenemies(scene, level, enemies):
 
     if level >= 3:
         bot = Enemy1(random.randint(1, 2)*2, random.randint(1, 3)*2,
-                     400, 416, 2)
+                     400, 416, 3)
         Enemy1.enemies.append(bot)
         bot.setPos(scene, groundx-bot.length-18, bot.lpos)
 
         bot = Enemy1(random.randint(1, 2)*2, random.randint(1, 3)*2,
-                     440, 456, 2)
+                     440, 456, 3)
         Enemy1.enemies.append(bot)
         bot.setPos(scene, groundx-bot.length-20, bot.lpos)
 
         bot = Enemy1(random.randint(1, 2)*2, random.randint(1, 3)*2,
-                     410, 426, 2)
+                     410, 426, 3)
         Enemy1.enemies.append(bot)
         bot.setPos(scene, groundx-bot.length-20, bot.lpos)
 
@@ -229,7 +229,7 @@ class Mario(Person):
 
     def move(self, keypress, scene):
         """ Functionality to move mario according to user input """
-        if keypress == 'w' or keypress == 'A':
+        if keypress == 'w' or keypress == 'A' or keypress == ' ':
             self.jumpup(scene)
         elif keypress == 'a' or keypress == 'D':
             self.moveleft(scene)

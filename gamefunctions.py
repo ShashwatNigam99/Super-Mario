@@ -7,8 +7,10 @@ import sys
 from config import *
 
 
-def check_lives(scene, lives):
+def check_lives(scene, lives, level):
     if lives <= 0:
+        os.system('clear')
+        print(scene.displayScene(level))
         print(Fore.RED+Style.BRIGHT+" You lost all lives. Final score : " +
               str(scene.score))
         sys.exit()
@@ -21,7 +23,8 @@ def clashcheck(scene, item, x, y):
 
     if(y > scene.fullwidth-10):
         os.system('aplay -q sounds/gameover.wav&')
-        print(" You won ! . Final score : " + str(scene.score))
+        print(Fore.RED + Style.BRIGHT +
+              " You won ! . Final score : " + str(scene.score))
         sys.exit()
     scenematrix = scene.returnmatrix()
 
@@ -37,7 +40,8 @@ def clashcheck(scene, item, x, y):
                 os.system('aplay -q sounds/ohno.wav&')
                 return 3
             else:
-                print(" You died . Final score : " + str(scene.score))
+                print(Fore.RED+Style.BRIGHT +
+                      " You died . Final score : " + str(scene.score))
                 os.system('aplay -q sounds/death.wav&')
                 sys.exit()
     for i in range(x, x + item.length):
@@ -58,7 +62,8 @@ def clashcheck(scene, item, x, y):
                 os.system('aplay -q sounds/ohno.wav&')
                 return 3
             else:
-                print(" You died . Final score : " + str(scene.score))
+                print(Fore.RED+Style.BRIGHT +
+                      " You died . Final score : " + str(scene.score))
                 os.system('aplay -q sounds/death.wav&')
                 sys.exit()
     for i in range(x, x + item.length):
@@ -95,7 +100,8 @@ def clashcheck(scene, item, x, y):
                 os.system('aplay -q sounds/ohno.wav&')
                 return 3
             else:
-                print(" You died . Final score : " + str(scene.score))
+                print(Fore.RED+Style.BRIGHT +
+                      " You died . Final score : " + str(scene.score))
                 os.system('aplay -q sounds/death.wav&')
                 sys.exit()
     for i in range(y, y + item.width):

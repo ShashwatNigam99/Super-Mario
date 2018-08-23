@@ -25,7 +25,6 @@ class Scene:
 
     def displayScene(self, level):
         """ Print the screen to the terminal """
-
         sceneprint = ""
         sceneprint += colors['Yellow'] + " "*40 + "SUPER MARIO\n" + RESET
         sceneprint += colors['Cyan']+"SCORE : " +\
@@ -37,9 +36,10 @@ class Scene:
             for j in range(self.start, self.start + self.width):
                 sceneprint += str(self.scenematrix[i][j])
             sceneprint += '\n'
-        sceneprint += "Press Q to exit\n"
+        sceneprint += colors['Cyan'] + "Press Q to exit\n" + RESET
         return sceneprint
 
+    # auxilary functions to return and update matrix
     def returnmatrix(self):
         return self.scenematrix
 
