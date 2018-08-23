@@ -34,7 +34,7 @@ def clashcheck(scene, item, x, y):
     for i in range(x, x + item.length):
         if scenematrix[i][y] in killers:
             if scenematrix[i][y] in ['{', '}']:
-                print("called")
+                os.system('aplay -q sounds/ohno.wav&')
                 return 3
             else:
                 print(" You died . Final score : " + str(scene.score))
@@ -51,7 +51,7 @@ def clashcheck(scene, item, x, y):
     for i in range(x, x + item.length):
         if scenematrix[i][y + item.width - 1] in killers:
             if scenematrix[i][y+item.width-1] in ['{', '}']:
-                print("called")
+                os.system('aplay -q sounds/ohno.wav&')
                 return 3
             else:
                 print(" You died . Final score : " + str(scene.score))
@@ -75,10 +75,12 @@ def clashcheck(scene, item, x, y):
             return 1
     for i in range(y, y + item.width):
         if scenematrix[x+item.length-1][i] in beaters:
+            os.system('aplay -q sounds/ohyeah.wav&')
             return 2
     for i in range(y, y + item.width):
         if scenematrix[x + item.length - 1][i] in killers:
             if scenematrix[x+item.length-1][i] in ['{', '}']:
+                os.system('aplay -q sounds/ohno.wav&')
                 return 3
             else:
                 print(" You died . Final score : " + str(scene.score))
@@ -96,6 +98,7 @@ def clashcheck(scene, item, x, y):
         item.status = 1
     for i in range(y, y + item.width):
         if scenematrix[x+item.length][i] in beaters:
+            os.system('aplay -q sounds/ohyeah.wav&')
             return 2
     return 0
 

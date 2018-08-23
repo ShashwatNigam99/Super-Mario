@@ -15,7 +15,7 @@ class Scene:
         self.score = 0
         self.scenematrix = []
         # scenematrix is a matrix to display all elements
-        for x in range(0, length):
+        for x in range(0, fullwidth):
             self.scenematrix.append([])
             for y in range(0, fullwidth):
                 self.scenematrix[x].append(' ')

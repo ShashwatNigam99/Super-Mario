@@ -76,7 +76,6 @@ def killenemy(scene, y, enemies):
     for bot in Enemy1.enemies:
         if(y >= bot.lpos and y <= bot.rpos):
             # clear the bot
-            os.system('aplay -q sounds/ohyeah.wav&')
             for i in range(bot.x, bot.x+bot.length):
                 for j in range(bot.y, bot.y+bot.width):
                     scenematrix[i][j] = ' '
@@ -162,17 +161,10 @@ class Person:
             xup = 0
             while(xup < (self.jump*2)):
                 if(clashcheck(scene, self, self.x - xup, self.y) == 0):
-                    #    self.setPos(scene, (self.x-xup), self.y)
                     xup += 1
                 else:
                     break
             self.setPos(scene, (self.x-xup), self.y)
-            # jumped = 0
-            # print(xup)
-            # while jumped <= xup:
-            #     print(jumped)
-            #     self.setPos(scene, (self.x-jumped), self.y)
-            #     jumped += 1
             self.status = 1
 
     def returnmatrix(self):

@@ -1,6 +1,6 @@
 """ Contains all game parameters in one place """
 
-from colorama import init, Fore, Style
+from colorama import init, Fore, Style, Back
 init(autoreset=True)
 
 
