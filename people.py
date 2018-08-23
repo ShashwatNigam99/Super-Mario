@@ -4,6 +4,7 @@ from input import *
 from config import *
 import os
 import random
+from obstacles import *
 
 getinp = Get()
 
@@ -112,8 +113,22 @@ class Person:
         """ Make mario move left after making necessary checks """
 
         if self.status == 0:
-            if clashcheck(scene, self, self.x, self.y - self.step) == 0:
+            # if clashcheck(scene, self, self.x, self.y - self.step) == 0:
+            #     self.setPos(scene, self.x, self.y - self.step)
+            chk = clashcheck(scene, self, self.x, self.y - self.step)
+            if chk == 0:
                 self.setPos(scene, self.x, self.y - self.step)
+            elif chk == 2:
+                killenemy(scene, self.y-self.step, Enemy1.enemies)
+                self.setPos(scene, self.x, self.y - self.step)
+            elif chk == 3:
+                killenemy(scene, self.y-self.step, Enemy1.enemies)
+                Lives.lives -= 1
+                self.setPos(scene, self.x, self.y - self.step)
+            elif chk == 4:
+                collect_coin(scene, self.y, Coins.coins)
+                self.setPos(scene, self.x, self.y - self.step)
+
         else:
             chk = clashcheck(scene, self, self.x +
                              self.gravity, self.y - self.step)
@@ -127,7 +142,10 @@ class Person:
             elif chk == 3:
                 killenemy(scene, self.y-self.step, Enemy1.enemies)
                 Lives.lives -= 1
-
+                self.setPos(scene, self.x + self.gravity,
+                            self.y - self.step)
+            elif chk == 4:
+                collect_coin(scene, self.y, Coins.coins)
                 self.setPos(scene, self.x + self.gravity,
                             self.y - self.step)
 
@@ -135,7 +153,18 @@ class Person:
         """ Make mario move right after making necessary checks """
 
         if self.status == 0:
-            if(clashcheck(scene, self, self.x, self.y + self.step) == 0):
+            chk = clashcheck(scene, self, self.x, self.y + self.step)
+            if chk == 0:
+                self.setPos(scene, self.x, self.y + self.step)
+            elif chk == 2:
+                killenemy(scene, self.y-self.step, Enemy1.enemies)
+                self.setPos(scene, self.x, self.y + self.step)
+            elif chk == 3:
+                killenemy(scene, self.y-self.step, Enemy1.enemies)
+                Lives.lives -= 1
+                self.setPos(scene, self.x, self.y + self.step)
+            elif chk == 4:
+                collect_coin(scene, self.y, Coins.coins)
                 self.setPos(scene, self.x, self.y + self.step)
         else:
             chk = clashcheck(scene, self, self.x +
@@ -150,6 +179,10 @@ class Person:
             elif chk == 3:
                 killenemy(scene, self.y+self.step, Enemy1.enemies)
                 Lives.lives -= 1
+                self.setPos(scene, self.x + self.gravity,
+                            self.y + self.step)
+            elif chk == 4:
+                collect_coin(scene, self.y, Coins.coins)
                 self.setPos(scene, self.x + self.gravity,
                             self.y + self.step)
 
@@ -216,6 +249,10 @@ class Mario(Person):
             elif chk == 3:
                 killenemy(scene, self.y, Enemy1.enemies)
                 Lives.lives -= 1
+                self.setPos(scene, self.x + self.gravity,
+                            self.y)
+            elif chk == 4:
+                collect_coin(scene, self.y, Coins.coins)
                 self.setPos(scene, self.x + self.gravity,
                             self.y)
 

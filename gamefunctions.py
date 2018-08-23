@@ -7,7 +7,7 @@ import sys
 from config import *
 
 
-def check_lives(lives):
+def check_lives(scene, lives):
     if lives <= 0:
         print(Fore.RED+Style.BRIGHT+" You lost all lives. Final score : " +
               str(scene.score))
@@ -43,6 +43,10 @@ def clashcheck(scene, item, x, y):
     for i in range(x, x + item.length):
         if scenematrix[i][y] in barriers:
             return 1
+    for i in range(x, x + item.length):
+        if scenematrix[i][y] in monies:
+            os.system('aplay -q sounds/coin.wav&')
+            return 4
 
     # check right boundary of item
     if y >= scene.fullwidth:
@@ -60,6 +64,10 @@ def clashcheck(scene, item, x, y):
     for i in range(x, x + item.length):
         if scenematrix[i][y + item.width - 1] in barriers:
             return 1
+    for i in range(x, x + item.length):
+        if scenematrix[i][y + item.width - 1] in monies:
+            os.system('aplay -q sounds/coin.wav&')
+            return 4
 
     # check top
     for i in range(y, y + item.width):
@@ -77,6 +85,10 @@ def clashcheck(scene, item, x, y):
         if scenematrix[x+item.length-1][i] in beaters:
             os.system('aplay -q sounds/ohyeah.wav&')
             return 2
+    for i in range(y, y + item.width):
+        if scenematrix[x+item.length-1][i] in monies:
+            os.system('aplay -q sounds/coin.wav&')
+            return 4
     for i in range(y, y + item.width):
         if scenematrix[x + item.length - 1][i] in killers:
             if scenematrix[x+item.length-1][i] in ['{', '}']:
@@ -99,6 +111,10 @@ def clashcheck(scene, item, x, y):
     for i in range(y, y + item.width):
         if scenematrix[x+item.length][i] in beaters:
             os.system('aplay -q sounds/ohyeah.wav&')
+            return 2
+    for i in range(y, y + item.width):
+        if scenematrix[x+item.length][i] in monies:
+            os.system('aplay -q sounds/coin.wav&')
             return 2
     return 0
 

@@ -22,7 +22,8 @@ SCENE_MOVE_AFTER = 60
 ALLOWED_INPUTS = ['w', 'a', 'd', 'A', 'C', 'D']
 
 SCORE_DIST = 10
-SCORE_KILLED = 100
+SCORE_KILLED = 500
+SCORE_COINS = 200
 
 SPEED = {1: 0.25,
          2: 0.2,
@@ -49,6 +50,7 @@ colors = {
 RESET = '\x1b[0m'
 
 groundx = 36
-barriers = [colors['Brown']+'#'+RESET, '#', '$']
+barriers = [colors['Brown'] + '#' + RESET, '#']
 killers = [colors['Blue']+'~', '~', '{', '}']
 beaters = ['^']
+monies = [colors['Yellow'] + '$' + RESET]
