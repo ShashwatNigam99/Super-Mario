@@ -28,33 +28,33 @@ def putenemies(scene, level, enemies):
 
     if level >= 2:
         bot = Enemy1(random.randint(1, 2)*2, random.randint(1, 3)*2,
-                     288, 304)
+                     288, 304, 2)
         Enemy1.enemies.append(bot)
         bot.setPos(scene, groundx-bot.length-19, bot.lpos)
 
         bot = Enemy1(random.randint(1, 2)*2, random.randint(1, 3)*2,
-                     300, 316)
+                     300, 316, 2)
         Enemy1.enemies.append(bot)
         bot.setPos(scene, groundx-bot.length-27, bot.lpos)
 
         bot = Enemy1(random.randint(1, 2)*2, random.randint(1, 3)*2,
-                     63, 95)
+                     63, 95, 2)
         Enemy1.enemies.append(bot)
         bot.setPos(scene, groundx-bot.length-9, bot.lpos)
 
     if level >= 3:
         bot = Enemy1(random.randint(1, 2)*2, random.randint(1, 3)*2,
-                     400, 416)
+                     400, 416, 2)
         Enemy1.enemies.append(bot)
         bot.setPos(scene, groundx-bot.length-18, bot.lpos)
 
         bot = Enemy1(random.randint(1, 2)*2, random.randint(1, 3)*2,
-                     440, 456)
+                     440, 456, 2)
         Enemy1.enemies.append(bot)
         bot.setPos(scene, groundx-bot.length-20, bot.lpos)
 
         bot = Enemy1(random.randint(1, 2)*2, random.randint(1, 3)*2,
-                     410, 426)
+                     410, 426, 2)
         Enemy1.enemies.append(bot)
         bot.setPos(scene, groundx-bot.length-20, bot.lpos)
 
@@ -227,14 +227,14 @@ class Enemy1(Person):
     # keeps track of enemies killed
     killed = 0
 
-    def __init__(self, length, width, lpos, rpos):
+    def __init__(self, length, width, lpos, rpos, step=1):
         """ Define characterstics of Enemy """
         Person.__init__(self, length, width)
         self.lpos = lpos
         self.rpos = rpos
         self.x = 0
         self.y = 0
-        self.step = 1
+        self.step = step
         # 1 for going right and -1 to go left
         self.direction = 1
         self.matrix = []
