@@ -8,7 +8,7 @@ This is a terminal based implementation that tries to simulate the classic Super
 Written in python3 without using pygame and curses.<br/>
 Only *colorama* has been used to bring in colours.<br/>
 The game has been tested only on Linux based operating systems, may not work on Windows.<br/>
-Sounds have been added but commented out due to submission restrictions.
+Sounds have been added.
 
 ### Prerequisites
 
